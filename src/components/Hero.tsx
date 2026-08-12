@@ -50,6 +50,7 @@ export default function Hero() {
                 videoRefs.current[i] = el
               }}
               src={scene.videoUrl}
+              poster={scene.posterUrl}
               autoPlay
               muted
               loop

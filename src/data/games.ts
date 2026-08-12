@@ -20,6 +20,7 @@ export interface Game {
 export interface Scene {
   label: string
   videoUrl: string
+  posterUrl: string
   gameId: GameId
 }
 
@@ -57,11 +58,13 @@ export const scenes: Scene[] = [
   {
     label: 'Footage',
     videoUrl: '/videos/ravage-footage.mp4',
+    posterUrl: '/videos/ravage-poster.jpg',
     gameId: 'ravage',
   },
   {
     label: 'Teaser',
     videoUrl: '/videos/khione-teaser.mp4',
+    posterUrl: '/videos/khione-poster.jpg',
     gameId: 'khione',
   },
 ]
