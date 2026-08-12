@@ -1,0 +1,63 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #141118;
+  --color-parchment: #f2e9da;
+  --color-ember: #e0563f;
+  --color-frost: #8fc1d4;
+  --color-midnight: #1e3a5f;
+  --color-gilt: #c9a227;
+  --font-display: "Fraunces", serif;
+}
+
+html,
+body {
+  font-family: "Fraunces", serif;
+  background-color: #141118;
+}
+
+/* Storybook Glass — warmer, inkier take on liquid glass */
+.story-glass {
+  background: rgba(20, 17, 24, 0.08);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  box-shadow: inset 0 1px 1px rgba(242, 233, 218, 0.12);
+  position: relative;
+  overflow: hidden;
+}
+
+.story-glass::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.4px;
+  background: linear-gradient(
+    180deg,
+    rgba(242, 233, 218, 0.5) 0%,
+    rgba(201, 162, 39, 0.2) 20%,
+    rgba(255, 255, 255, 0) 40%,
+    rgba(255, 255, 255, 0) 60%,
+    rgba(201, 162, 39, 0.2) 80%,
+    rgba(242, 233, 218, 0.5) 100%
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* Foreground overlay idle bob — constant scale keeps edges hidden */
+@keyframes train-bob {
+  0%,
+  100% {
+    transform: translateY(0) scale(1.03);
+  }
+  50% {
+    transform: translateY(-6px) scale(1.03);
+  }
+}
+
+.train-bob {
+  animation: train-bob 3s ease-in-out infinite;
+}
