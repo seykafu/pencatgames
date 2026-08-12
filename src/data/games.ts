@@ -13,6 +13,8 @@ export interface Game {
   ctaClasses: string
   /** 'light' = parchment hero text, 'midnight' = dark blue hero text */
   contentMode: 'light' | 'midnight'
+  /** Dim + soften busy gameplay footage so hero text stays readable */
+  heroScrim: boolean
 }
 
 export interface Scene {
@@ -33,6 +35,7 @@ export const games: Record<GameId, Game> = {
     keyArt: '/images/ravage.png',
     ctaClasses: 'bg-ember text-parchment hover:bg-ember/90',
     contentMode: 'light',
+    heroScrim: true,
   },
   khione: {
     id: 'khione',
@@ -45,6 +48,7 @@ export const games: Record<GameId, Game> = {
     keyArt: '/images/khione.png',
     ctaClasses: 'bg-frost text-ink hover:bg-frost/90',
     contentMode: 'midnight',
+    heroScrim: false,
   },
 }
 

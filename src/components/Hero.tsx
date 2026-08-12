@@ -44,18 +44,30 @@ export default function Hero() {
         style={{ transform: `translateX(-${activeScene * 100}%)` }}
       >
         {scenes.map((scene, i) => (
-          <video
-            key={scene.videoUrl}
-            ref={(el) => {
-              videoRefs.current[i] = el
-            }}
-            src={scene.videoUrl}
-            autoPlay
-            muted
-            loop
-            playsInline
-            className="h-full w-full shrink-0 object-cover"
-          />
+          <div key={scene.videoUrl} className="relative h-full w-full shrink-0">
+            <video
+              ref={(el) => {
+                videoRefs.current[i] = el
+              }}
+              src={scene.videoUrl}
+              autoPlay
+              muted
+              loop
+              playsInline
+              className="h-full w-full object-cover"
+            />
+            {games[scene.gameId].heroScrim && (
+              <div
+                className="absolute inset-0"
+                style={{
+                  background:
+                    'radial-gradient(ellipse at center, rgba(20,17,24,0.5) 0%, rgba(20,17,24,0.2) 65%, rgba(20,17,24,0.4) 100%)',
+                  backdropFilter: 'blur(2px)',
+                  WebkitBackdropFilter: 'blur(2px)',
+                }}
+              />
+            )}
+          </div>
         ))}
       </div>
 
