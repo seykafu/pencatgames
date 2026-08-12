@@ -56,8 +56,8 @@ export const games: Record<GameId, Game> = {
 /* Real game footage — served from public/videos/ */
 export const scenes: Scene[] = [
   {
-    label: 'Footage',
-    videoUrl: '/videos/ravage-footage.mp4',
+    label: 'Trailer',
+    videoUrl: '/videos/ravage-hero.mp4',
     posterUrl: '/videos/ravage-poster.jpg',
     gameId: 'ravage',
   },
