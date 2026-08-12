@@ -3,42 +3,30 @@ import { ArrowRight } from 'lucide-react'
 import Navbar from './Navbar.tsx'
 import { games, overlayPngUrl, scenes, stats } from '../data/games.ts'
 
-const CROSSFADE_MS = 1000
 const AUTO_ADVANCE_MS = 8000
 
 export default function Hero() {
   const [activeScene, setActiveScene] = useState(0)
-  const [isTransitioning, setIsTransitioning] = useState(false)
   const [autoAdvance, setAutoAdvance] = useState(true)
-  const cooldownRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([])
 
   const game = games[scenes[activeScene].gameId]
   const isMidnight = game.contentMode === 'midnight'
 
+  // Mid-swipe clicks are fine: the track simply retargets and animates on
   const switchScene = (index: number, manual = false) => {
-    if (index === activeScene || isTransitioning) return
+    if (index === activeScene) return
     setActiveScene(index)
-    setIsTransitioning(true)
     if (manual) setAutoAdvance(false)
-    cooldownRef.current = setTimeout(() => setIsTransitioning(false), CROSSFADE_MS)
   }
 
   useEffect(() => {
     if (!autoAdvance) return
     const timer = setTimeout(() => {
       setActiveScene((s) => (s + 1) % scenes.length)
-      setIsTransitioning(true)
-      cooldownRef.current = setTimeout(() => setIsTransitioning(false), CROSSFADE_MS)
     }, AUTO_ADVANCE_MS)
     return () => clearTimeout(timer)
   }, [activeScene, autoAdvance])
-
-  useEffect(() => {
-    return () => {
-      if (cooldownRef.current) clearTimeout(cooldownRef.current)
-    }
-  }, [])
 
   // If the browser ever blocks/pauses autoplay, resume the visible video
   useEffect(() => {
@@ -50,23 +38,26 @@ export default function Hero() {
 
   return (
     <section className="relative h-screen w-full overflow-hidden bg-black">
-      {/* Background scene videos */}
-      {scenes.map((scene, i) => (
-        <video
-          key={scene.videoUrl}
-          ref={(el) => {
-            videoRefs.current[i] = el
-          }}
-          src={scene.videoUrl}
-          autoPlay
-          muted
-          loop
-          playsInline
-          className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-1000 ease-in-out ${
-            i === activeScene ? 'opacity-100' : 'opacity-0'
-          }`}
-        />
-      ))}
+      {/* Background scene videos — horizontal swipe between scenes */}
+      <div
+        className="absolute inset-0 flex transition-transform duration-1000 ease-in-out"
+        style={{ transform: `translateX(-${activeScene * 100}%)` }}
+      >
+        {scenes.map((scene, i) => (
+          <video
+            key={scene.videoUrl}
+            ref={(el) => {
+              videoRefs.current[i] = el
+            }}
+            src={scene.videoUrl}
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="h-full w-full shrink-0 object-cover"
+          />
+        ))}
+      </div>
 
       {/* Foreground vignette overlay */}
       <img
@@ -83,6 +74,7 @@ export default function Hero() {
         {/* Hero content */}
         <div
           className={`flex flex-1 flex-col items-center justify-center px-5 text-center transition-colors duration-700 sm:px-8 ${contentColor}`}
+          style={{ '--outline': isMidnight ? '#f2e9da' : '#141118' } as React.CSSProperties}
         >
           <div className="story-glass mb-6 rounded-full px-4 py-1.5">
             <p className="font-sans text-xs sm:text-sm">
@@ -90,13 +82,13 @@ export default function Hero() {
             </p>
           </div>
 
-          <h1 className="font-display max-w-4xl text-4xl leading-[1.1] sm:text-5xl md:text-7xl lg:text-[5.5rem]">
+          <h1 className="text-bubble-outline font-display max-w-4xl text-4xl leading-[1.1] sm:text-5xl md:text-7xl lg:text-[5.5rem]">
             {game.headingLines[0]}
             <br />
             {game.headingLines[1]}
           </h1>
 
-          <p className="mt-6 max-w-xl font-sans text-sm leading-relaxed opacity-90 sm:text-base">
+          <p className="text-bubble-outline mt-6 max-w-xl font-sans text-sm leading-relaxed sm:text-base">
             {game.hook}
           </p>
 
@@ -118,30 +110,37 @@ export default function Hero() {
             id="games"
             className="mt-10 flex items-end gap-6 sm:gap-10"
           >
-            {(['ravage', 'khione'] as const).map((gameId) => (
-              <div key={gameId} className="flex flex-col items-center gap-2">
-                <span className="font-sans text-[10px] tracking-[0.2em] opacity-60 sm:text-xs">
-                  {games[gameId].eyebrow}
-                </span>
-                <div className="flex gap-4 sm:gap-6">
-                  {scenes.map((scene, i) =>
-                    scene.gameId === gameId ? (
-                      <button
-                        key={scene.label}
-                        onClick={() => switchScene(i, true)}
-                        className={`border-b-2 pb-1 font-sans text-xs transition-all duration-300 sm:text-sm ${
-                          i === activeScene
-                            ? 'border-current opacity-100'
-                            : 'border-transparent opacity-50 hover:opacity-80'
-                        }`}
-                      >
-                        {scene.label}
-                      </button>
-                    ) : null,
-                  )}
+            {(['ravage', 'khione'] as const).map((gameId) => {
+              const isActiveGame = scenes[activeScene].gameId === gameId
+              return (
+                <div key={gameId} className="flex flex-col items-center gap-2">
+                  <span
+                    className={`text-bubble-outline font-sans text-[10px] tracking-[0.2em] transition-opacity duration-300 sm:text-xs ${
+                      isActiveGame ? 'opacity-100' : 'opacity-50'
+                    }`}
+                  >
+                    {games[gameId].eyebrow}
+                  </span>
+                  <div className="flex gap-2 sm:gap-3">
+                    {scenes.map((scene, i) =>
+                      scene.gameId === gameId ? (
+                        <button
+                          key={scene.label}
+                          onClick={() => switchScene(i, true)}
+                          className={`rounded-full px-4 py-1.5 font-sans text-xs transition-all duration-300 sm:text-sm ${
+                            i === activeScene
+                              ? `${games[gameId].ctaClasses} font-semibold shadow-lg`
+                              : 'story-glass opacity-60 hover:opacity-90'
+                          }`}
+                        >
+                          {scene.label}
+                        </button>
+                      ) : null,
+                    )}
+                  </div>
                 </div>
-              </div>
-            ))}
+              )
+            })}
           </div>
         </div>
 

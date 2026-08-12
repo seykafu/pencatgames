@@ -47,6 +47,22 @@ body {
   pointer-events: none;
 }
 
+/* Soft "sticker" outline so hero text never blends into bright footage.
+   Offsets are in em so the bubble scales with font size; --outline flips
+   to parchment when the midnight content mode needs a light halo. */
+.text-bubble-outline {
+  text-shadow:
+    0.045em 0 0 var(--outline, #141118),
+    -0.045em 0 0 var(--outline, #141118),
+    0 0.045em 0 var(--outline, #141118),
+    0 -0.045em 0 var(--outline, #141118),
+    0.032em 0.032em 0 var(--outline, #141118),
+    -0.032em 0.032em 0 var(--outline, #141118),
+    0.032em -0.032em 0 var(--outline, #141118),
+    -0.032em -0.032em 0 var(--outline, #141118),
+    0 0 0.14em var(--outline, #141118);
+}
+
 /* Foreground overlay idle bob — constant scale keeps edges hidden */
 @keyframes train-bob {
   0%,
