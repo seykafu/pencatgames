@@ -67,15 +67,11 @@ export default function About() {
                 rel="noopener noreferrer"
                 className="story-glass group rounded-2xl p-6 transition-transform hover:-translate-y-1"
               >
-                <div
-                  className={`mb-4 flex h-36 items-center justify-center rounded-xl font-display text-lg italic ${
-                    game.id === 'ravage'
-                      ? 'bg-ember/20 text-ember'
-                      : 'bg-frost/20 text-frost'
-                  }`}
-                >
-                  [PLACEHOLDER key art]
-                </div>
+                <img
+                  src={game.keyArt}
+                  alt={`${game.name} key art`}
+                  className="mb-4 aspect-[3/1] w-full rounded-xl object-cover"
+                />
                 <h3 className="font-display text-xl">{game.name}</h3>
                 <p className="mt-2 font-sans text-sm leading-relaxed text-parchment/70">
                   {game.hook}

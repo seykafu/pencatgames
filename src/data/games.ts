@@ -8,6 +8,7 @@ export interface Game {
   hook: string
   ctaLabel: string
   ctaUrl: string
+  keyArt: string
   /** Tailwind classes for the solid CTA button */
   ctaClasses: string
   /** 'light' = parchment hero text, 'midnight' = dark blue hero text */
@@ -29,6 +30,7 @@ export const games: Record<GameId, Game> = {
     hook: 'A 2D tactical strategy and RPG game wrapped around a visual novel. Characters who plot, plead, fall in love, and betray each other across a thirty-battle campaign with seven endings - every one of which you can still lose.',
     ctaLabel: 'Play Ravage',
     ctaUrl: 'https://Ravage.game',
+    keyArt: '/images/ravage.png',
     ctaClasses: 'bg-ember text-parchment hover:bg-ember/90',
     contentMode: 'light',
   },
@@ -40,6 +42,7 @@ export const games: Record<GameId, Game> = {
     hook: 'Play as a 3D Persian cat named Khione and solve riddles across one island to another to discover the final hidden treasure.',
     ctaLabel: 'Explore Khione',
     ctaUrl: 'https://Khione.game',
+    keyArt: '/images/khione.png',
     ctaClasses: 'bg-frost text-ink hover:bg-frost/90',
     contentMode: 'midnight',
   },
