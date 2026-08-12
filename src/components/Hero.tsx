@@ -45,9 +45,29 @@ export default function Hero() {
     return () => clearTimeout(timer)
   }, [activeScene, autoAdvance])
 
-  // If the browser ever blocks/pauses autoplay, resume the visible video
+  // If the browser ever blocks/pauses autoplay, resume the visible video —
+  // retry when it buffers enough, when the tab becomes visible again, and
+  // on the first user interaction (which lifts autoplay restrictions)
   useEffect(() => {
-    videoRefs.current[activeScene]?.play().catch(() => {})
+    const video = videoRefs.current[activeScene]
+    if (!video) return
+    const tryPlay = () => {
+      if (video.paused) video.play().catch(() => {})
+    }
+    const onVisible = () => {
+      if (!document.hidden) tryPlay()
+    }
+    tryPlay()
+    video.addEventListener('canplay', tryPlay)
+    window.addEventListener('pointerdown', tryPlay)
+    window.addEventListener('keydown', tryPlay)
+    document.addEventListener('visibilitychange', onVisible)
+    return () => {
+      video.removeEventListener('canplay', tryPlay)
+      window.removeEventListener('pointerdown', tryPlay)
+      window.removeEventListener('keydown', tryPlay)
+      document.removeEventListener('visibilitychange', onVisible)
+    }
   }, [activeScene])
 
   // Hero content color: parchment on Ravage scenes, midnight on Khione scenes
@@ -65,6 +85,12 @@ export default function Hero() {
             <video
               ref={(el) => {
                 videoRefs.current[i] = el
+                // React doesn't always reflect the muted prop onto the DOM
+                // before the browser's autoplay check — set it directly
+                if (el) {
+                  el.muted = true
+                  el.defaultMuted = true
+                }
               }}
               src={scene.videoUrl}
               poster={scene.posterUrl}
