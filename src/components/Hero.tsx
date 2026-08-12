@@ -118,9 +118,12 @@ export default function Hero() {
           </div>
 
           {/* Scene switcher, grouped by game */}
+          {/* Switcher sits over the dark carriage bezel in every scene, so it
+              keeps parchment text + dark outline instead of the scene color mode */}
           <div
             id="games"
-            className="mt-10 flex items-end gap-6 sm:gap-10"
+            className="mt-10 flex items-end gap-6 text-parchment sm:gap-10"
+            style={{ '--outline': '#141118' } as React.CSSProperties}
           >
             {(['ravage', 'khione'] as const).map((gameId) => {
               const isActiveGame = scenes[activeScene].gameId === gameId

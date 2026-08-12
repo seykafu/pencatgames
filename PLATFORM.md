@@ -228,10 +228,10 @@ src/
 
 ## 9. Open Items (waiting on content)
 
-- [ ] 4 scene loop videos (2 per game) + labels
-- [ ] Foreground overlay PNG (themed vignette)
-- [ ] Final taglines/hooks for Ravage and Khione & the 10 Islands
-- [ ] Game logos / key art for About page cards
-- [ ] Publisher story copy for About page
+- [x] Scene videos (1 per game: ravage-footage.mp4, khione-teaser.mp4) — more welcome
+- [ ] Foreground overlay PNG (themed vignette; still using reference train asset)
+- [ ] Final hero headings for Ravage and Khione (descriptions done)
+- [x] Game key art for About page cards (public/images/)
+- [x] Publisher story copy for About page (Kasey Fu / Cultivate / vision)
 - [ ] Stats bar final numbers/claims
 - [ ] Favicon / social share (OG) image

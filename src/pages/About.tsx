@@ -5,15 +5,15 @@ import { games, mailtoHref, youtubeUrl } from '../data/games.ts'
 const principles = [
   {
     title: 'Narrative before mechanics',
-    body: '[PLACEHOLDER] Every system we ship exists to serve the story. If a mechanic doesn’t make the tale land harder, it doesn’t make the cut.',
+    body: 'Every game we publish starts with a tale worth telling. Whether the world is 2D or 3D, the systems and set pieces exist to make that tale land harder — and to be genuinely fun to play along the way.',
   },
   {
-    title: 'Worlds with a point of view',
-    body: '[PLACEHOLDER] We publish games with something to say — worlds that feel authored, not assembled.',
+    title: 'Beautiful, memorable tales',
+    body: 'Our vision is to publish games that tell beautiful and memorable stories while still engaging players in fun gameplay, experiences, and enjoyment. Story and play aren’t rivals — the best games weave them together.',
   },
   {
-    title: 'Small teams, big feelings',
-    body: '[PLACEHOLDER] Pencat Games is intentionally small. That’s how the strange, personal, unforgettable stories get made.',
+    title: 'AI-enabled, human-written',
+    body: 'Pencat Games publishes games that are enabled with the help of AI — it’s how a small team ships big worlds. But the writing is, and always will be, human-created.',
   },
 ]
 
@@ -40,15 +40,27 @@ export default function About() {
           </h2>
           <div className="mt-4 max-w-[65ch] space-y-4 font-sans leading-relaxed text-parchment/80">
             <p>
-              [PLACEHOLDER] Pencat Games began with one person, two worlds, and
-              the stubborn belief that story-first games deserve a home of
-              their own. What started as late-night builds became Ravage, then
-              Khione &amp; the 10 Islands — and a publishing label to carry
-              them.
+              Pencat Games is produced and published by Kasey Fu, an AI product
+              lead and games enthusiast who loves storytelling. Storytelling
+              has been a huge part of Kasey’s life since childhood — he’s
+              published fiction (<em>Darkness Me, Colorful You</em>) and never
+              stopped writing.
             </p>
             <p>
-              [PLACEHOLDER] Founding story: who’s behind Pencat Games, why
-              storytelling-first, and the road to publishing both titles.
+              His interest in the convergence of storytelling and game design
+              began when he joined a remote team to produce{' '}
+              <a
+                href="https://seykafu.itch.io/cultivate"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gilt underline-offset-4 hover:underline"
+              >
+                Cultivate
+              </a>
+              , a 3D maze-runner game. What started there became a conviction —
+              that games are at their best when a story worth telling shapes
+              the play — and that conviction grew into Ravage, Khione &amp; the
+              10 Islands, and Pencat Games itself.
             </p>
           </div>
         </section>
