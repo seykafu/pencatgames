@@ -15,9 +15,9 @@ export default function Hero() {
 
   // Mid-swipe clicks are fine: the track simply retargets and animates on
   const switchScene = (index: number, manual = false) => {
+    if (manual) setAutoAdvance(false)
     if (index === activeScene) return
     setActiveScene(index)
-    if (manual) setAutoAdvance(false)
   }
 
   useEffect(() => {
