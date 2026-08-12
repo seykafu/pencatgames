@@ -8,10 +8,27 @@ const AUTO_ADVANCE_MS = 8000
 export default function Hero() {
   const [activeScene, setActiveScene] = useState(0)
   const [autoAdvance, setAutoAdvance] = useState(true)
+  // Text lags one beat behind the footage: it slides out in the swipe
+  // direction, swaps to the new game, then slides in from the other side
+  const [displayedScene, setDisplayedScene] = useState(0)
+  const [textPhase, setTextPhase] = useState<'in' | 'out'>('in')
+  const slideDirRef = useRef(1)
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([])
 
   const game = games[scenes[activeScene].gameId]
+  const displayedGame = games[scenes[displayedScene].gameId]
   const isMidnight = game.contentMode === 'midnight'
+
+  useEffect(() => {
+    if (activeScene === displayedScene) return
+    slideDirRef.current = activeScene > displayedScene ? 1 : -1
+    setTextPhase('out')
+    const timer = setTimeout(() => {
+      setDisplayedScene(activeScene)
+      setTextPhase('in')
+    }, 280)
+    return () => clearTimeout(timer)
+  }, [activeScene, displayedScene])
 
   // Mid-swipe clicks are fine: the track simply retargets and animates on
   const switchScene = (index: number, manual = false) => {
@@ -95,27 +112,35 @@ export default function Hero() {
             </p>
           </div>
 
-          <h1 className="text-bubble-outline font-display max-w-4xl text-4xl leading-[1.1] sm:text-5xl md:text-7xl lg:text-[5.5rem]">
-            {game.headingLines[0]}
-            <br />
-            {game.headingLines[1]}
-          </h1>
+          <div
+            key={displayedScene}
+            className={`flex flex-col items-center ${
+              textPhase === 'out' ? 'hero-text-out' : 'hero-text-in'
+            }`}
+            style={{ '--slide-dir': slideDirRef.current } as React.CSSProperties}
+          >
+            <h1 className="text-bubble-outline font-display max-w-4xl text-4xl leading-[1.1] sm:text-5xl md:text-7xl lg:text-[5.5rem]">
+              {displayedGame.headingLines[0]}
+              <br />
+              {displayedGame.headingLines[1]}
+            </h1>
 
-          <p className="text-bubble-outline mt-6 max-w-xl font-sans text-sm leading-relaxed sm:text-base">
-            {game.hook}
-          </p>
+            <p className="text-bubble-outline mt-6 max-w-xl font-sans text-sm leading-relaxed sm:text-base">
+              {displayedGame.hook}
+            </p>
 
-          {/* Primary CTA */}
-          <div className="story-glass mt-8 rounded-full p-1.5">
-            <a
-              href={game.ctaUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`flex items-center gap-2 rounded-full px-6 py-3 font-sans text-sm font-semibold transition-colors sm:px-8 sm:text-base ${game.ctaClasses}`}
-            >
-              {game.ctaLabel}
-              <ArrowRight className="h-4 w-4" />
-            </a>
+            {/* Primary CTA */}
+            <div className="story-glass mt-8 rounded-full p-1.5">
+              <a
+                href={displayedGame.ctaUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`flex items-center gap-2 rounded-full px-6 py-3 font-sans text-sm font-semibold transition-colors sm:px-8 sm:text-base ${displayedGame.ctaClasses}`}
+              >
+                {displayedGame.ctaLabel}
+                <ArrowRight className="h-4 w-4" />
+              </a>
+            </div>
           </div>
 
           {/* Scene switcher, grouped by game */}
