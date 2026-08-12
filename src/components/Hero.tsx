@@ -11,6 +11,7 @@ export default function Hero() {
   const [isTransitioning, setIsTransitioning] = useState(false)
   const [autoAdvance, setAutoAdvance] = useState(true)
   const cooldownRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const videoRefs = useRef<(HTMLVideoElement | null)[]>([])
 
   const game = games[scenes[activeScene].gameId]
   const isMidnight = game.contentMode === 'midnight'
@@ -39,6 +40,11 @@ export default function Hero() {
     }
   }, [])
 
+  // If the browser ever blocks/pauses autoplay, resume the visible video
+  useEffect(() => {
+    videoRefs.current[activeScene]?.play().catch(() => {})
+  }, [activeScene])
+
   // Hero content color: parchment on Ravage scenes, midnight on Khione scenes
   const contentColor = isMidnight ? 'text-midnight' : 'text-parchment'
 
@@ -48,6 +54,9 @@ export default function Hero() {
       {scenes.map((scene, i) => (
         <video
           key={scene.videoUrl}
+          ref={(el) => {
+            videoRefs.current[i] = el
+          }}
           src={scene.videoUrl}
           autoPlay
           muted

@@ -45,31 +45,16 @@ export const games: Record<GameId, Game> = {
   },
 }
 
-/* [PLACEHOLDER] Scene videos reuse the motion-prompt loops until final
-   game capture arrives — mapped 2-and-2 so the CTA logic stands now. */
+/* Real game footage — served from public/videos/ */
 export const scenes: Scene[] = [
   {
-    label: 'Golden Hour',
-    videoUrl:
-      'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260702_081127_0992a171-d3c6-4978-8213-0ec5df8b6d63.mp4',
+    label: 'Intro',
+    videoUrl: '/videos/ravage-intro.mov',
     gameId: 'ravage',
   },
   {
-    label: 'Still Water',
-    videoUrl:
-      'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260702_092026_dd05b805-ea0f-40b2-8c52-332b88502592.mp4',
-    gameId: 'ravage',
-  },
-  {
-    label: 'Deep Woods',
-    videoUrl:
-      'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260702_081042_df7202bf-bd80-4b2b-bbc6-1f09ba2870e9.mp4',
-    gameId: 'khione',
-  },
-  {
-    label: 'Quiet Dawn',
-    videoUrl:
-      'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260702_080959_4cac5234-3573-464e-a5b7-76b94b8a7d61.mp4',
+    label: 'Teaser',
+    videoUrl: '/videos/khione-teaser.mp4',
     gameId: 'khione',
   },
 ]
