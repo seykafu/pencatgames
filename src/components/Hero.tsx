@@ -145,7 +145,9 @@ export default function Hero() {
             }`}
             style={{ '--slide-dir': slideDirRef.current } as React.CSSProperties}
           >
-            <h1 className="text-bubble-outline font-display max-w-4xl text-4xl leading-[1.1] sm:text-5xl md:text-7xl lg:text-[5.5rem]">
+            <h1
+              className={`text-bubble-outline font-display max-w-4xl leading-[1.1] ${displayedGame.headingClass}`}
+            >
               {displayedGame.headingLines[0]}
               <br />
               {displayedGame.headingLines[1]}

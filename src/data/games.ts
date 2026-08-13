@@ -5,6 +5,8 @@ export interface Game {
   name: string
   eyebrow: string
   headingLines: [string, string]
+  /** Tailwind size classes — longer headings use a smaller scale */
+  headingClass: string
   hook: string
   ctaLabel: string
   ctaUrl: string
@@ -30,6 +32,7 @@ export const games: Record<GameId, Game> = {
     name: 'Ravage',
     eyebrow: 'RAVAGE',
     headingLines: ['Stories That', 'Refuse to Stay Quiet'],
+    headingClass: 'text-4xl sm:text-5xl md:text-7xl lg:text-[5.5rem]',
     hook: 'A 2D tactical strategy and RPG game wrapped around a visual novel. Characters who plot, plead, fall in love, and betray each other across a thirty-battle campaign with seven endings - every one of which you can still lose.',
     ctaLabel: 'Play Ravage',
     ctaUrl: 'https://Ravage.game',
@@ -42,7 +45,8 @@ export const games: Record<GameId, Game> = {
     id: 'khione',
     name: 'Khione & the 10 Islands',
     eyebrow: 'KHIONE',
-    headingLines: ['Ten Islands,', 'One Unending Winter'],
+    headingLines: ['Ten Islands, a Bunch of Riddles,', 'and a Mystery to Be Solved'],
+    headingClass: 'text-3xl sm:text-4xl md:text-5xl lg:text-6xl',
     hook: 'Play as a 3D Persian cat named Khione and solve riddles across one island to another to discover the final hidden treasure.',
     ctaLabel: 'Explore Khione',
     ctaUrl: 'https://Khione.game',
