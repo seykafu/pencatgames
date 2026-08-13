@@ -33,7 +33,7 @@ export const games: Record<GameId, Game> = {
     eyebrow: 'RAVAGE',
     headingLines: ['Stories That', 'Refuse to Stay Quiet'],
     headingClass: 'text-4xl sm:text-5xl md:text-7xl lg:text-[5.5rem]',
-    hook: 'A 2D tactical strategy and RPG game wrapped around a visual novel. Characters who plot, plead, fall in love, and betray each other across a thirty-battle campaign with seven endings - every one of which you can still lose.',
+    hook: 'A 2D tactical strategy and RPG game wrapped around a visual novel. Characters who plot, plead, fall in love, and betray each other across a thirty-battle campaign with seven endings, every one of which you can still lose.',
     ctaLabel: 'Play Ravage',
     ctaUrl: 'https://Ravage.game',
     keyArt: '/images/ravage.png',

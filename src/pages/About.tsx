@@ -5,15 +5,15 @@ import { games, mailtoHref, youtubeUrl } from '../data/games.ts'
 const principles = [
   {
     title: 'Narrative before mechanics',
-    body: 'Every game we publish starts with a tale worth telling. Whether the world is 2D or 3D, the systems and set pieces exist to make that tale land harder — and to be genuinely fun to play along the way.',
+    body: 'Every game we publish starts with a tale worth telling. Whether the world is 2D or 3D, the systems and set pieces exist to make that tale land harder, and to be genuinely fun to play along the way.',
   },
   {
     title: 'Beautiful, memorable tales',
-    body: 'Our vision is to publish games that tell beautiful and memorable stories while still engaging players in fun gameplay, experiences, and enjoyment. Story and play aren’t rivals — the best games weave them together.',
+    body: 'Our vision is to publish games that tell beautiful and memorable stories while still engaging players in fun gameplay, experiences, and enjoyment. Story and play aren’t rivals. The best games weave them together.',
   },
   {
     title: 'AI-enabled, human-written',
-    body: 'Pencat Games publishes games that are enabled with the help of AI — it’s how a small team ships big worlds. But the writing is, and always will be, human-created.',
+    body: 'Pencat Games publishes games that are enabled with the help of AI. It’s how a small team ships big worlds. But the writing is, and always will be, human-created.',
   },
 ]
 
@@ -29,7 +29,7 @@ export default function About() {
           <em className="text-gilt">something true.</em>
         </h1>
         <p className="mt-6 max-w-[65ch] font-sans leading-relaxed text-parchment/80">
-          Pencat Games is an independent publisher of storytelling games —
+          Pencat Games is an independent publisher of storytelling games:
           worlds you fall into, characters you carry with you.
         </p>
 
@@ -42,7 +42,7 @@ export default function About() {
             <p>
               Pencat Games is produced and published by Kasey Fu, an AI product
               lead and games enthusiast who loves storytelling. Storytelling
-              has been a huge part of Kasey’s life since childhood — he’s
+              has been a huge part of Kasey’s life since childhood. He’s
               published fiction (<em>Darkness Me, Colorful You</em>) and never
               stopped writing.
             </p>
@@ -57,10 +57,10 @@ export default function About() {
               >
                 Cultivate
               </a>
-              , a 3D maze-runner game. What started there became a conviction —
-              that games are at their best when a story worth telling shapes
-              the play — and that conviction grew into Ravage, Khione &amp; the
-              10 Islands, and Pencat Games itself.
+              , a 3D maze-runner game. What started there became a conviction:
+              games are at their best when a story worth telling shapes the
+              play. That conviction grew into Ravage, Khione &amp; the 10
+              Islands, and Pencat Games itself.
             </p>
           </div>
         </section>
