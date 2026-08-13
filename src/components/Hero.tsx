@@ -134,7 +134,7 @@ export default function Hero() {
         >
           <div className="story-glass mb-6 rounded-full px-4 py-1.5">
             <p className="font-sans text-xs sm:text-sm">
-              Two worlds published. More stories on the way.
+              More games coming soon
             </p>
           </div>
 
