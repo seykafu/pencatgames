@@ -1,6 +1,6 @@
-import { ArrowRight, Mail, Youtube } from 'lucide-react'
-import Navbar from '../components/Navbar.tsx'
-import { games, mailtoHref, youtubeUrl } from '../data/games.ts'
+import { ArrowRight, Coffee } from 'lucide-react'
+import Footer from '../components/Footer'
+import { games, kofiUrl } from '../data/games'
 
 const principles = [
   {
@@ -20,15 +20,13 @@ const principles = [
 export default function About() {
   return (
     <div className="min-h-screen bg-ink text-parchment">
-      <Navbar />
-
-      <main className="mx-auto max-w-3xl px-5 pb-24 pt-10 sm:px-8 sm:pt-16">
+      <main className="mx-auto max-w-3xl px-5 pb-24 pt-32 sm:px-8 sm:pt-40">
         {/* Hero statement */}
         <h1 className="font-display text-4xl leading-[1.15] sm:text-5xl md:text-6xl">
           The games worth remembering are the ones that tell you{' '}
           <em className="text-gilt">something true.</em>
         </h1>
-        <p className="mt-6 max-w-[65ch] font-sans leading-relaxed text-parchment/80">
+        <p className="mt-6 max-w-[65ch] font-body leading-relaxed text-parchment/80">
           Pencat Games is an independent publisher of storytelling games:
           worlds you fall into, characters you carry with you.
         </p>
@@ -38,7 +36,7 @@ export default function About() {
           <h2 className="font-display text-2xl italic text-gilt sm:text-3xl">
             Our Story
           </h2>
-          <div className="mt-4 max-w-[65ch] space-y-4 font-sans leading-relaxed text-parchment/80">
+          <div className="mt-4 max-w-[65ch] space-y-4 font-body leading-relaxed text-parchment/80">
             <p>
               Pencat Games is produced and published by Kasey Fu, an AI product
               lead and games enthusiast who loves storytelling. Storytelling
@@ -71,7 +69,7 @@ export default function About() {
             What We Publish
           </h2>
           <div className="mt-6 grid gap-6 sm:grid-cols-2">
-            {Object.values(games).map((game) => (
+            {games.map((game) => (
               <a
                 key={game.id}
                 href={game.ctaUrl}
@@ -85,10 +83,10 @@ export default function About() {
                   className="mb-4 aspect-[3/1] w-full rounded-xl object-cover"
                 />
                 <h3 className="font-display text-xl">{game.name}</h3>
-                <p className="mt-2 font-sans text-sm leading-relaxed text-parchment/70">
+                <p className="mt-2 font-body text-sm leading-relaxed text-parchment/70">
                   {game.hook}
                 </p>
-                <span className="mt-4 inline-flex items-center gap-1.5 font-sans text-sm font-medium text-gilt">
+                <span className="mt-4 inline-flex items-center gap-1.5 font-body text-sm font-medium text-gilt">
                   {game.ctaLabel}
                   <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </span>
@@ -106,7 +104,7 @@ export default function About() {
             {principles.map((p) => (
               <div key={p.title}>
                 <h3 className="font-display text-lg">{p.title}</h3>
-                <p className="mt-1 max-w-[65ch] font-sans text-sm leading-relaxed text-parchment/70">
+                <p className="mt-1 max-w-[65ch] font-body text-sm leading-relaxed text-parchment/70">
                   {p.body}
                 </p>
               </div>
@@ -114,26 +112,29 @@ export default function About() {
           </div>
         </section>
 
-        {/* Footer CTA row */}
-        <section className="mt-20 flex flex-col items-start gap-4 border-t border-parchment/10 pt-10 sm:flex-row sm:items-center">
+        {/* Support */}
+        <section className="mt-16 rounded-3xl border border-stroke bg-surface p-6 sm:p-8">
+          <h2 className="font-display text-2xl italic text-gilt sm:text-3xl">
+            Support the Studio
+          </h2>
+          <p className="mt-3 max-w-[65ch] font-body text-sm leading-relaxed text-parchment/70">
+            Pencat Games is a one-person publishing label. If you enjoy Ravage
+            or Khione, buying Kasey a coffee helps keep the next story in
+            production.
+          </p>
           <a
-            href={mailtoHref}
-            className="flex items-center gap-2 rounded-full bg-ember px-6 py-3 font-sans text-sm font-semibold text-parchment transition-colors hover:bg-ember/90"
-          >
-            <Mail className="h-4 w-4" />
-            Contact Us
-          </a>
-          <a
-            href={youtubeUrl}
+            href={kofiUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="story-glass flex items-center gap-2 rounded-full px-6 py-3 font-sans text-sm font-medium text-parchment transition-colors hover:text-gilt"
+            className="mt-5 inline-flex items-center gap-2 rounded-full bg-ember px-6 py-3 font-body text-sm font-semibold text-parchment transition-colors hover:bg-ember/90"
           >
-            <Youtube className="h-4 w-4" />
-            YouTube
+            <Coffee className="h-4 w-4" />
+            Buy me a coffee on Ko-fi
+            <span aria-hidden="true">↗</span>
           </a>
         </section>
       </main>
+      <Footer />
     </div>
   )
 }

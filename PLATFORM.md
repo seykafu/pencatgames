@@ -235,3 +235,27 @@ src/
 - [x] Publisher story copy for About page (Kasey Fu / Cultivate / vision)
 - [ ] Stats bar final numbers/claims
 - [ ] Favicon / social share (OG) image
+
+---
+
+## v2 Layout (portfolio-style, Aug 2026)
+
+The landing page pivoted from a single locked-viewport hero to a scrolling
+portfolio layout, keeping the Pencat palette, Fraunces wordmark, logo, and
+game assets:
+
+- **Intro** — brief loading screen (Write / Play / Remember, 000→100 counter,
+  ember→gilt progress bar). Once per tab session; skipped for reduced-motion.
+- **Navbar** — floating pill: cat logo · Home · Games · About · YouTube · Say hi (mailto).
+- **Hero** — "Pencat Games" name reveal (GSAP) over slow-crossfading game footage,
+  rotating word ("Publishing tales / worlds / riddles / battles worth remembering."),
+  CTAs: See the games · Buy me a coffee (Ko-fi).
+- **Featured games** — bento grid (7/5). Each card autoplays that game's footage
+  (in-view only), genre pill, title, tagline, hook, and links out to the game site.
+- **Stats** — 2 Worlds Published · 1 Independent Studio · 100% Human-Written Stories.
+- **Footer** — marquee, contact CTA (Email us · Buy me a coffee), links, pulsing
+  "More games coming soon", flipped Khione footage behind.
+- **About** — same content plus a "Support the Studio" Ko-fi box and the shared footer.
+
+Ko-fi: https://ko-fi.com/kaseyfu (hero, footer, About page).
+Stack additions: gsap, framer-motion, Inter (body font).

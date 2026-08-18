@@ -1,150 +1,89 @@
-import { useState } from 'react'
-import { Link } from 'react-router-dom'
-import { Menu, X } from 'lucide-react'
-import { mailtoHref, youtubeUrl } from '../data/games.ts'
+import { useEffect, useState } from 'react'
+import { Link, useLocation } from 'react-router-dom'
+import { logoIcon, mailtoHref, youtubeUrl } from '../data/games'
+import RingButton from './RingButton'
 
 const links = [
-  { label: 'Games', href: '/#games', external: false },
-  { label: 'About Us', href: '/about', external: false },
-  { label: 'Contact Us', href: mailtoHref, external: false },
-  { label: 'YouTube', href: youtubeUrl, external: true },
+  { label: 'Home', to: '/', hideOnMobile: true },
+  { label: 'Games', to: '/#games' },
+  { label: 'About', to: '/about' },
+  { label: 'YouTube', href: youtubeUrl },
 ]
 
-function NavLink({
-  label,
-  href,
-  external,
-  className,
-  onClick,
-  style,
-}: {
-  label: string
-  href: string
-  external: boolean
-  className: string
-  onClick?: () => void
-  style?: React.CSSProperties
-}) {
-  if (external) {
-    return (
-      <a
-        href={href}
-        target="_blank"
-        rel="noopener noreferrer"
-        className={className}
-        onClick={onClick}
-        style={style}
-      >
-        {label}
-      </a>
-    )
-  }
-  if (href.startsWith('mailto:') || href.includes('#')) {
-    return (
-      <a href={href} className={className} onClick={onClick} style={style}>
-        {label}
-      </a>
-    )
-  }
-  return (
-    <Link to={href} className={className} onClick={onClick} style={style}>
-      {label}
-    </Link>
-  )
-}
-
 export default function Navbar() {
-  const [menuOpen, setMenuOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+  const { pathname, hash } = useLocation()
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 100)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
+  const isActive = (to?: string) => {
+    if (!to) return false
+    if (to === '/') return pathname === '/' && !hash
+    if (to === '/#games') return pathname === '/' && hash === '#games'
+    return pathname === to
+  }
+
+  const linkClass = (active: boolean) =>
+    `rounded-full px-3 py-1.5 text-xs transition-colors sm:px-4 sm:py-2 sm:text-sm ${
+      active
+        ? 'bg-stroke/60 text-parchment'
+        : 'text-muted hover:bg-stroke/50 hover:text-parchment'
+    }`
 
   return (
-    <>
-      <nav className="flex w-full items-center justify-between px-5 py-4 sm:px-8 sm:py-6">
+    <header className="pointer-events-none fixed inset-x-0 top-0 z-50 flex justify-center px-4 pt-4 md:pt-6">
+      <nav
+        className={`pointer-events-auto inline-flex items-center gap-1 rounded-full border border-parchment/10 bg-surface/85 px-2 py-2 backdrop-blur-md transition-shadow duration-300 ${
+          scrolled ? 'shadow-lg shadow-black/30' : ''
+        }`}
+      >
         <Link
           to="/"
-          className="font-display text-xl italic text-parchment sm:text-2xl"
+          aria-label="Pencat Games home"
+          className="accent-gradient group h-9 w-9 shrink-0 rounded-full p-[2px] transition-transform duration-300 hover:scale-110"
         >
-          Pencat Games
+          <img
+            src={logoIcon}
+            alt=""
+            className="h-full w-full rounded-full object-cover"
+          />
         </Link>
 
-        {/* Desktop pill */}
-        <div className="story-glass hidden items-center gap-6 rounded-full py-2 pl-6 pr-2 md:flex">
-          {links.map((l) => (
-            <NavLink
-              key={l.label}
-              {...l}
-              className="font-sans text-sm text-parchment/90 transition-colors hover:text-parchment"
-            />
-          ))}
-          <a
-            href="/#games"
-            className="rounded-full bg-ember px-4 py-2 font-sans text-sm font-medium text-parchment transition-colors hover:bg-ember/90"
-          >
-            Browse Games
-          </a>
-        </div>
+        <span className="mx-1 hidden h-5 w-px bg-stroke sm:block" />
 
-        {/* Mobile hamburger */}
-        <button
-          onClick={() => setMenuOpen(!menuOpen)}
-          className="story-glass relative z-50 rounded-full p-3 text-parchment md:hidden"
-          aria-label={menuOpen ? 'Close menu' : 'Open menu'}
-        >
-          <span className="relative block h-5 w-5">
-            <Menu
-              className={`absolute inset-0 h-5 w-5 transition-all duration-300 ${
-                menuOpen ? 'rotate-90 scale-75 opacity-0' : 'rotate-0 scale-100 opacity-100'
-              }`}
-            />
-            <X
-              className={`absolute inset-0 h-5 w-5 transition-all duration-300 ${
-                menuOpen ? 'rotate-0 scale-100 opacity-100' : '-rotate-90 scale-75 opacity-0'
-              }`}
-            />
-          </span>
-        </button>
+        {links.map((l) =>
+          l.href ? (
+            <a
+              key={l.label}
+              href={l.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={linkClass(false)}
+            >
+              {l.label}
+            </a>
+          ) : (
+            <Link
+              key={l.label}
+              to={l.to!}
+              className={`${linkClass(isActive(l.to))} ${l.hideOnMobile ? 'hidden sm:inline-flex' : ''}`}
+            >
+              {l.label}
+            </Link>
+          ),
+        )}
+
+        <span className="mx-1 hidden h-5 w-px bg-stroke sm:block" />
+
+        <RingButton href={mailtoHref} variant="outline" size="sm" className="ml-1">
+          Say hi <span aria-hidden="true">↗</span>
+        </RingButton>
       </nav>
-
-      {/* Mobile menu overlay */}
-      <div
-        className={`fixed inset-0 z-40 md:hidden ${menuOpen ? '' : 'pointer-events-none'}`}
-      >
-        <div
-          className={`absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity duration-500 ${
-            menuOpen ? 'opacity-100' : 'opacity-0'
-          }`}
-          style={{ transitionTimingFunction: 'cubic-bezier(0.4,0,0.2,1)' }}
-          onClick={() => setMenuOpen(false)}
-        />
-        <div className="relative flex h-full flex-col items-center justify-center gap-8">
-          {links.map((l, i) => (
-            <NavLink
-              key={l.label}
-              {...l}
-              onClick={() => setMenuOpen(false)}
-              className={`font-display text-3xl text-parchment transition-all duration-500 ${
-                menuOpen ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0'
-              }`}
-              style={{
-                transitionDelay: menuOpen ? `${100 + i * 50}ms` : '0ms',
-                transitionTimingFunction: 'cubic-bezier(0.4,0,0.2,1)',
-              }}
-            />
-          ))}
-          <a
-            href="/#games"
-            onClick={() => setMenuOpen(false)}
-            className={`mt-6 rounded-full bg-ember px-8 py-3 font-sans text-lg font-medium text-parchment transition-all duration-500 ${
-              menuOpen ? 'scale-100 opacity-100' : 'scale-75 opacity-0'
-            }`}
-            style={{
-              transitionDelay: menuOpen ? '300ms' : '0ms',
-              transitionTimingFunction: 'cubic-bezier(0.4,0,0.2,1)',
-            }}
-          >
-            Browse Games
-          </a>
-        </div>
-      </div>
-    </>
+    </header>
   )
 }
