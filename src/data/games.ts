@@ -50,7 +50,8 @@ export const mailtoHref = `mailto:${contactEmail}?subject=Hello%20Pencat%20Games
 export const youtubeUrl = 'https://www.youtube.com/@jxfufu'
 export const kofiUrl = 'https://ko-fi.com/kaseyfu'
 
-export const logoIcon = '/images/logo/favicon-source.png'
+export const logoIcon = '/images/logo/kasey-head.png'
+export const mascotImage = '/images/gaming.png'
 
 export const stats = [
   { value: '2', label: 'Worlds Published' },

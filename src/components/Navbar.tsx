@@ -50,7 +50,7 @@ export default function Navbar() {
           <img
             src={logoIcon}
             alt=""
-            className="h-full w-full rounded-full object-cover"
+            className="h-full w-full rounded-full bg-ink object-cover"
           />
         </Link>
 

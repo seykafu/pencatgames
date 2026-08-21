@@ -1,6 +1,6 @@
 import { ArrowRight, Coffee } from 'lucide-react'
 import Footer from '../components/Footer'
-import { games, kofiUrl } from '../data/games'
+import { games, kofiUrl, mascotImage } from '../data/games'
 
 const principles = [
   {
@@ -113,25 +113,33 @@ export default function About() {
         </section>
 
         {/* Support */}
-        <section className="mt-16 rounded-3xl border border-stroke bg-surface p-6 sm:p-8">
-          <h2 className="font-display text-2xl italic text-gilt sm:text-3xl">
-            Support the Studio
-          </h2>
-          <p className="mt-3 max-w-[65ch] font-body text-sm leading-relaxed text-parchment/70">
-            Pencat Games is a one-person publishing label. If you enjoy Ravage
-            or Khione, buying Kasey a coffee helps keep the next story in
-            production.
-          </p>
-          <a
-            href={kofiUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-5 inline-flex items-center gap-2 rounded-full bg-ember px-6 py-3 font-body text-sm font-semibold text-parchment transition-colors hover:bg-ember/90"
-          >
-            <Coffee className="h-4 w-4" />
-            Buy me a coffee on Ko-fi
-            <span aria-hidden="true">↗</span>
-          </a>
+        <section className="mt-16 flex flex-col items-center gap-6 rounded-3xl border border-stroke bg-surface p-6 sm:flex-row sm:gap-8 sm:p-8">
+          <div className="flex-1">
+            <h2 className="font-display text-2xl italic text-gilt sm:text-3xl">
+              Support the Studio
+            </h2>
+            <p className="mt-3 max-w-[65ch] font-body text-sm leading-relaxed text-parchment/70">
+              Pencat Games is a one-person publishing label. If you enjoy
+              Ravage or Khione, buying Kasey a coffee helps keep the next
+              story in production.
+            </p>
+            <a
+              href={kofiUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-5 inline-flex items-center gap-2 rounded-full bg-ember px-6 py-3 font-body text-sm font-semibold text-parchment transition-colors hover:bg-ember/90"
+            >
+              <Coffee className="h-4 w-4" />
+              Buy me a coffee on Ko-fi
+              <span aria-hidden="true">↗</span>
+            </a>
+          </div>
+          <img
+            src={mascotImage}
+            alt="Chibi illustration of Kasey sitting cross-legged with a game controller"
+            className="w-44 shrink-0 sm:w-52"
+            loading="lazy"
+          />
         </section>
       </main>
       <Footer />
