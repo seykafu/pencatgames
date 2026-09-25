@@ -1,10 +1,13 @@
-import { useEffect, useRef } from 'react'
+import { lazy, Suspense, useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { Coffee, Mail } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { games, kofiUrl, mailtoHref, youtubeUrl } from '../data/games'
 import { useInViewPlay } from '../hooks/useInViewPlay'
 import RingButton from './RingButton'
+
+// three.js is only needed here, so it loads with the footer, not the page
+const KhioneCompanion = lazy(() => import('./KhioneCompanion'))
 
 const MARQUEE = 'Stories worth remembering  •  More games coming soon  •  '
 
@@ -31,7 +34,7 @@ export default function Footer() {
 
   return (
     <footer className="relative overflow-hidden bg-ink pb-8 pt-16 md:pb-12 md:pt-20">
-      {/* Khione footage, flipped, heavily dimmed */}
+      {/* Khione footage, dimmed */}
       <video
         ref={videoRef}
         src={games[1].video}
@@ -40,9 +43,9 @@ export default function Footer() {
         loop
         playsInline
         preload="metadata"
-        className="absolute inset-0 h-full w-full scale-y-[-1] object-cover"
+        className="absolute inset-0 h-full w-full object-cover"
       />
-      <div className="absolute inset-0 bg-ink/80" />
+      <div className="absolute inset-0 bg-ink/75" />
       <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-ink to-transparent" />
 
       <div className="relative z-10">
@@ -63,7 +66,10 @@ export default function Footer() {
 
         {/* CTA */}
         <div className="mx-auto flex max-w-[1200px] flex-col items-center px-6 py-16 text-center md:px-10 md:py-24 lg:px-16">
-          <p className="text-xs uppercase tracking-[0.3em] text-muted">Get in touch</p>
+          <Suspense fallback={<div style={{ width: 180, height: 196 }} aria-hidden="true" />}>
+            <KhioneCompanion />
+          </Suspense>
+          <p className="mt-8 text-xs uppercase tracking-[0.3em] text-muted">Get in touch</p>
           <h2 className="mt-4 max-w-3xl text-3xl text-parchment md:text-5xl">
             Have a tale worth telling?{' '}
             <em className="font-display italic whitespace-nowrap">Say hi.</em>
@@ -107,6 +113,13 @@ export default function Footer() {
             <span className="hidden sm:inline">© Pencat Games</span>
           </div>
         </div>
+        <p className="mt-4 px-6 text-center text-[10px] text-parchment/30">
+          Khione model: "Cat" by{' '}
+          <a href="https://quaternius.com" target="_blank" rel="noopener noreferrer" className="underline-offset-2 hover:underline">
+            Quaternius
+          </a>{' '}
+          (CC0)
+        </p>
       </div>
     </footer>
   )
