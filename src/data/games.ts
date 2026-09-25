@@ -60,7 +60,8 @@ export const lectureZoom = {
 }
 export const ravageContinuation = '/videos/ravage-continuation.mp4'
 
-export const logoIcon = '/images/logo/kasey-head.png'
+/** Studio mark: the pen-nib cat, cropped for round slots like the navbar */
+export const logoIcon = '/images/logo/pencat-mark.png'
 export const mascotImage = '/images/gaming.png'
 
 export const stats = [

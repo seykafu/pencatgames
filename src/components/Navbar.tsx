@@ -4,15 +4,14 @@ import { logoIcon, mailtoHref, youtubeUrl } from '../data/games'
 import RingButton from './RingButton'
 
 const links = [
-  { label: 'Home', to: '/', hideOnMobile: true },
-  { label: 'Games', to: '/#games' },
+  { label: 'Home', to: '/' },
   { label: 'About', to: '/about' },
   { label: 'YouTube', href: youtubeUrl },
 ]
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
-  const { pathname, hash } = useLocation()
+  const { pathname } = useLocation()
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 100)
@@ -21,12 +20,7 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  const isActive = (to?: string) => {
-    if (!to) return false
-    if (to === '/') return pathname === '/' && !hash
-    if (to === '/#games') return pathname === '/' && hash === '#games'
-    return pathname === to
-  }
+  const isActive = (to?: string) => !!to && pathname === to
 
   const linkClass = (active: boolean) =>
     `rounded-full px-3 py-1.5 text-xs transition-colors sm:px-4 sm:py-2 sm:text-sm ${
@@ -71,7 +65,7 @@ export default function Navbar() {
             <Link
               key={l.label}
               to={l.to!}
-              className={`${linkClass(isActive(l.to))} ${l.hideOnMobile ? 'hidden sm:inline-flex' : ''}`}
+              className={linkClass(isActive(l.to))}
             >
               {l.label}
             </Link>
