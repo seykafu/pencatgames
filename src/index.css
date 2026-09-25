@@ -54,18 +54,6 @@ body {
   border: 1px solid rgba(242, 233, 218, 0.1);
 }
 
-/* GSAP entrance targets start hidden; the timeline reveals them */
-.name-reveal {
-  opacity: 0;
-  transform: translateY(50px);
-}
-
-.blur-in {
-  opacity: 0;
-  filter: blur(10px);
-  transform: translateY(20px);
-}
-
 .role-fade-in {
   animation: role-fade-in 0.4s ease-out;
 }

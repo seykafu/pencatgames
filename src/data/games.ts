@@ -50,6 +50,16 @@ export const mailtoHref = `mailto:${contactEmail}?subject=Hello%20Pencat%20Games
 export const youtubeUrl = 'https://www.youtube.com/@jxfufu'
 export const kofiUrl = 'https://ko-fi.com/kaseyfu'
 
+/** Scroll-scrubbed hero: lecture hall push-in that ends on this exact
+    Ravage frame, where ravageContinuation picks up */
+export const lectureZoom = {
+  url: '/videos/lecture-zoom.mp4',
+  poster: '/videos/lecture-zoom-poster.jpg',
+  bytes: 8_127_619,
+  duration: 8.04,
+}
+export const ravageContinuation = '/videos/ravage-continuation.mp4'
+
 export const logoIcon = '/images/logo/kasey-head.png'
 export const mascotImage = '/images/gaming.png'
 

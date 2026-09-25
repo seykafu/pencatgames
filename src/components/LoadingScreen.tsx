@@ -1,12 +1,22 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 
 const words = ['Write', 'Play', 'Remember']
 const DURATION_MS = 1800
+/** Give up waiting on a slow download; the hero falls back to streaming */
+const MAX_WAIT_MS = 20000
 
-export default function LoadingScreen({ onComplete }: { onComplete: () => void }) {
+interface LoadingScreenProps {
+  onComplete: () => void
+  /** 0–1 download progress of the hero video; the counter never outruns it */
+  loadProgress: number
+}
+
+export default function LoadingScreen({ onComplete, loadProgress }: LoadingScreenProps) {
   const [count, setCount] = useState(0)
   const [wordIndex, setWordIndex] = useState(0)
+  const loadRef = useRef(loadProgress)
+  loadRef.current = loadProgress
 
   // Elapsed-time driven (not rAF) so the intro still finishes if the page
   // was opened in a background tab where animation frames are paused
@@ -20,14 +30,15 @@ export default function LoadingScreen({ onComplete }: { onComplete: () => void }
       setTimeout(onComplete, 350)
     }
     const iv = setInterval(() => {
-      const progress = Math.min(1, (performance.now() - start) / DURATION_MS)
+      const timeProgress = Math.min(1, (performance.now() - start) / DURATION_MS)
+      const progress = Math.min(timeProgress, loadRef.current)
       setCount(Math.round(progress * 100))
       if (progress >= 1) {
         clearInterval(iv)
         finish()
       }
     }, 30)
-    const hardStop = setTimeout(finish, DURATION_MS + 1500)
+    const hardStop = setTimeout(finish, MAX_WAIT_MS)
     return () => {
       clearInterval(iv)
       clearTimeout(hardStop)

@@ -259,3 +259,18 @@ game assets:
 
 Ko-fi: https://ko-fi.com/kaseyfu (hero, footer, About page).
 Stack additions: gsap, framer-motion, Inter (body font).
+
+### v2.1 Hero: scroll-driven lecture zoom (Sep 2026)
+
+The hero is now a pinned 420vh scroll stage:
+
+1. **Countdown** tracks the real download of `lecture-zoom.mp4` (fetched into a
+   blob so scrubbing never waits on the network); 100 = fully loaded.
+2. **0 → 60% scroll**: scroll position scrubs the lecture-hall push-in
+   (Higgsfield FLUX 3, 8s) from the back row onto the student's laptop.
+3. **58%**: real Ravage gameplay (`ravage-continuation.mp4`) crossfades in on the
+   identical frame and starts playing.
+4. **66 → 90%**: gameplay darkens; the "Pencat Games" title block reveals.
+5. Scrolling back reverses everything; gameplay pauses and rewinds.
+
+Reduced-motion users get the final title-over-gameplay state with no scrubbing.
