@@ -60,8 +60,8 @@ export const lectureZoom = {
 }
 export const ravageContinuation = '/videos/ravage-continuation.mp4'
 
-/** Studio mark: pixel-art cat, cropped so the ears clear a round mask */
-export const logoIcon = '/images/logo/pencat-pixel-cat.png'
+/** Studio mark: controller cat, cropped so ears and grips clear a round mask */
+export const logoIcon = '/images/logo/pencat-controller-cat.png'
 export const mascotImage = '/images/gaming.png'
 
 export const stats = [
